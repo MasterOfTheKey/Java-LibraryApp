@@ -1,4 +1,4 @@
-package com.javacourse.inheritanceExample.b;
+package com.javacourse.inheritanceExample.b.B;
 
 import static org.junit.Assert.*;
 
