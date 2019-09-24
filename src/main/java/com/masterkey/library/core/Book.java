@@ -87,6 +87,14 @@ public class Book {
     	authors = newAuthorsArray;
     }
     
+    public boolean isWrittenBy(Author author) {
+    	for(Author bookAuthor : this.getAuthor()) {
+    		if(bookAuthor.hashCode() != author.hashCode()) continue;
+    		if(bookAuthor.equals(author))return true;
+    	}
+    	return false;
+    }
+    
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", price=" + price + ", authors=" + getAuthorsArrayToString()
