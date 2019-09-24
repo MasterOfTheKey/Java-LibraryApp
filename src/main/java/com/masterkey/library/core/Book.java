@@ -6,6 +6,10 @@
 package com.masterkey.library.core;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -15,19 +19,30 @@ public class Book {
     private long id;
     private String title;
     private BigDecimal price;
-    private String author;
-    public Book(long id, String title, String author) {
+    private Author[] authors;
+    private Pubblisher pubblisher;
+    
+    private static final Logger log = LoggerFactory.getLogger(Book.class);
+    
+	public Book(long id, String title, Author[] authors) {
         this.id = id;
         this.title = title;
-        this.author = author;
+        this.authors = authors;
         this.price = new BigDecimal("0.00");
     }
-    public Book(long id, String title, BigDecimal price, String author) {
+    public Book(long id, String title, BigDecimal price, Author[] author) {
         this.id = id;
         this.title = title;
         this.price = price;
-        this.author = author;
+        this.authors = author;
     }
+    public Book(long id, String title, BigDecimal price, Author[] author, Pubblisher pubblisher) {
+		this.id = id;
+		this.title = title;
+		this.price = price;
+		this.authors = author;
+		this.pubblisher = pubblisher;
+	}
     
     public long getId() {
         return id;
@@ -53,17 +68,36 @@ public class Book {
         this.price = price;
     }
 
-    public String getAuthor() {
-        return author;
+    public Author[] getAuthor() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(Author[] author) {
+        this.authors = author;
     }
+    
+    public void addAuthor(Author author) {
+    	int oldAuthorsArrayLength = authors.length;
+    	Author newAuthorsArray[] = new Author[oldAuthorsArrayLength+1];
+    	for(int i = 0; i<authors.length; i++) {
+    		newAuthorsArray[i] = authors[i]; 
+    	}
+    	newAuthorsArray[newAuthorsArray.length-1] = author;
+    	authors = newAuthorsArray;
+    }
+    
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", price=" + price + ", authors=" + getAuthorsArrayToString()
+				+ ", pubblisher=" + pubblisher.toString() + "]";
+	}
 
-    @Override
-    public String toString() {
-        return "Book{" + "id=" + id + ", title=" + title + ", price=" + price + ", author=" + author + '}';
+    private String getAuthorsArrayToString() {
+    	StringBuilder stringBuilder = new StringBuilder();
+    	for(Author a : authors) {
+    		stringBuilder.append(a.toString());
+    	}
+    	return stringBuilder.toString();
     }
     
 }

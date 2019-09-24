@@ -15,11 +15,11 @@ import java.util.Scanner;
  */
 public class Library {
 
-    ArrayList<Book> libraryBookList;
+    Book libraryBookArray[];
     Scanner keyboardScanner;
 
     public Library() {
-        this.libraryBookList = new ArrayList<Book>();
+        this.libraryBookArray = new Book[0];
         this.keyboardScanner = new Scanner(System.in);
     }
     
@@ -31,12 +31,14 @@ public class Library {
                     + "[1] add book\n"
                     + "[2] delete book\n"
                     + "[3] modify book\n"
-                    + "[4] print library stock\n"
-                    + "[5] close application\n"
+                    + "[4] add author\n"
+                    + "[5] add pubblisher\n"
+                    + "[6] print library stock\n"
+                    + "[7] close application\n"
                     + "press number and enter >>");
             switch (keyboardScanner.nextLine()) {
                 case "1":
-                    addBook();
+                    getBookInfos();
                     break;
                 case "2":
                     deleteBook();
@@ -46,38 +48,86 @@ public class Library {
                     System.out.println("Error: service unavaible");
                     break;
                 case "4":
-                    System.out.println(this.toString());
+                    //modifyBook();
+                    System.out.println("Error: service unavaible");
                     break;
                 case "5":
+                    //modifyBook();
+                    System.out.println("Error: service unavaible");
+                    break;
+                case "6":
+                    System.out.println(this.toString());
+                    break;
+                case "7":
                     opDone = true;
                     System.out.println("see you soon!");
                     break;
+                    
                 default:
-                    System.out.println("Error: Command not found");
+                    System.out.println("Error: command does not exist!");
                     break;
             }
         }
     }
 
-    private void addBook() {
+    private void getBookInfos() {
+        long id = 0;
         String title = "";
-        String author = "";
+        Author author[] = new Author[0];
         BigDecimal price = new BigDecimal("0.00");
-        long id = generateId();
+        Pubblisher pubblisher = null;
+        id = generateId();
         title = getTitleForNewBook();
-        author = getAuthorForNewBook();
         price = getPriceForNewBook();
-        libraryBookList.add(new Book(id,title,price,author));
+        author = getAuthorForNewBook();
+        pubblisher = getPubblisherForNewBook();
+        addBook(id,title,price,author,pubblisher);
+    }
+    private void addBook(long newId, String newTitle, BigDecimal newPrice, Author[] newAuthor, Pubblisher newPubblisher) {
+    	Book newBookArray[] = null;
+    	if(libraryBookArray.length==0) {
+        	newBookArray = new Book[] {new Book(newId,newTitle,newPrice,newAuthor,newPubblisher)};
+        }
+        else{
+        	newBookArray = new Book[libraryBookArray.length+1];
+        	for(int i = 0; i<libraryBookArray.length; i++) {
+        		newBookArray[i] = libraryBookArray[i];
+        	}
+        	newBookArray[newBookArray.length-1] = new Book(newId,newTitle,newPrice,newAuthor,newPubblisher);
+        }
+        libraryBookArray = newBookArray;
+    }
+    
+    private Pubblisher getPubblisherForNewBook() {
+    	String pubblisherName = "";
+    	String pubblisherIdAsString = "";
+    	long pubblisherId = 0;
+    	boolean opDone = false;
+    	while(!opDone) {
+    		System.out.print("pubblisher id (NO STRINGS!): ");
+    		pubblisherIdAsString = keyboardScanner.nextLine();
+    		if(!pubblisherIdAsString.isBlank()) {
+    			pubblisherId = Long.parseLong(pubblisherIdAsString);
+    			System.out.print("pubblisher name: ");
+        		pubblisherName = keyboardScanner.nextLine();
+        		if(!pubblisherName.isBlank()) {
+        			break;
+        		}
+    		}
+    		System.out.println("Error: can\'t input blank values!");
+    	}
+    	return new Pubblisher(pubblisherId,pubblisherName);
     }
     private BigDecimal getPriceForNewBook(){
         boolean opDone = false;
         BigDecimal newBookPrice = new BigDecimal("0.00");
         while(!opDone){
             System.out.print("want to add price?[Y/N] (default value is set to 0.0)");
-            if ("N".equals(keyboardScanner.nextLine())) {
+            String response = keyboardScanner.nextLine();
+            if ("N".equals(response)) {
                 newBookPrice = BigDecimal.ZERO;
                 opDone = true;
-            } else if("Y".equalsIgnoreCase(keyboardScanner.nextLine())) {
+            } else if("Y".equalsIgnoreCase(response)) {
                 newBookPrice = getPriceFromInput();
                 opDone = true;
             }
@@ -124,21 +174,37 @@ public class Library {
         }
         return newBookTitle;
     }
-    private String getAuthorForNewBook(){
+    private Author[] getAuthorForNewBook(){
         boolean opDone = false;
-        String newAuthor = "";
+        Author authorsArray[] = new Author[1];
+        String newAuthorsName = "";
+        String newAuthorsSurname = "";
+        String newAuthorsIdAsString = "";
         while(!opDone){
-            System.out.print("book author: ");
-            newAuthor =  keyboardScanner.nextLine();
-            if(newAuthor.isBlank()){
+            System.out.print("book author\'s name: ");
+            newAuthorsName =  keyboardScanner.nextLine();
+            System.out.print("book author\'s surname: ");
+            newAuthorsSurname =  keyboardScanner.nextLine();
+            System.out.print("book author id: ");
+            newAuthorsIdAsString =  keyboardScanner.nextLine();
+            if(newAuthorsName.isBlank() || newAuthorsSurname.isBlank() || newAuthorsIdAsString.isBlank()){
                 System.out.println("Error: can\'t use blank spaces");
             }
             else{
-                opDone = true;
+            	if(authorsArray.length == 1) authorsArray[0] = new Author(Long.parseLong(newAuthorsIdAsString),newAuthorsName,newAuthorsSurname);
+                System.out.print("Add another author? (Y/N): ");
+            	if(keyboardScanner.nextLine().equals("N")) {
+                	opDone = true;
+                }
+                Author newAuthorsArray[] = new Author[authorsArray.length+1];
+                for(int i = 0; i<authorsArray.length; i++) {
+                	newAuthorsArray[i] = authorsArray[i];
+                }
+                newAuthorsArray[newAuthorsArray.length-1] = new Author(Long.parseLong(newAuthorsIdAsString),newAuthorsName,newAuthorsSurname);
+                authorsArray = newAuthorsArray;
             }
         }
-        return newAuthor;
-        
+        return authorsArray;
     }
     
     private void deleteBook() {
@@ -172,7 +238,6 @@ public class Library {
     private void deleteByBookTitle(){
         boolean opDone = false;
         System.out.println(this.toString());
-        
         while(!opDone){
             String bookTitleToDelete = "";
             System.out.print("delete: ");
@@ -181,16 +246,26 @@ public class Library {
             if(bookTitleToDelete.isBlank()){
                 System.out.println("Error: title cannot be empty!");
             }
-            for(Book book : libraryBookList){
+            for(Book book : libraryBookArray){
                 if(bookTitleToDelete.equals(book.getTitle())){
                     System.out.println("title found\nDeletion completed!!");
-                    libraryBookList.remove(index);
+                    Book newBookArray[] =  new Book[libraryBookArray.length-1];
+                    for(int i = 0; i<newBookArray.length;i++) {
+                    	if(i==index) {
+                    		if(libraryBookArray[i+1]!=null) {
+                    			newBookArray[i] = libraryBookArray[i+1];
+                    		}
+                    	}
+                    	newBookArray[i] = libraryBookArray[i];
+                    }
+                    libraryBookArray = newBookArray;
                     opDone = true;
                     break;
                 }
                 else{
                     System.out.println("Error: book not found!!");
                 }
+                index++;
             }
         }
         
@@ -203,10 +278,9 @@ public class Library {
     private void modifyBook() {
 
     }*/
-
     private long generateId() {
         long id = 000000000;
-        int size = libraryBookList.size();
+        int size = libraryBookArray.length;
         while (size > 0) {
             id++;
             size--;
@@ -216,11 +290,12 @@ public class Library {
 
     @Override
     public String toString() {
+    	System.out.println(libraryBookArray.length);
         StringBuilder strBuilder = new StringBuilder();
-        for (Book book : libraryBookList) {
-            strBuilder.append(book.toString() + "\n");
+        for (int i = 0; i<libraryBookArray.length;i++) {
+            strBuilder.append(libraryBookArray[i].toString() + "\n");
         }
         return (strBuilder.toString());
     }
-
+    
 }
