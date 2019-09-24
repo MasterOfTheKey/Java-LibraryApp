@@ -1,25 +1,20 @@
-package com.javacourse.inheritanceExample.b.B;
+package com.javacourse.inheritanceExample.b;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class BTest {
 
-	@Before
-	public void before() {
-		
-	}
 	@Test
 	public void testB() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testSum() {
-		B b = new B(2,2,2);
-		assertEquals(6,b.sum());
+		B b = new B(1,1,1);
+		assertEquals(3,b.sum());
 	}
 
 }
