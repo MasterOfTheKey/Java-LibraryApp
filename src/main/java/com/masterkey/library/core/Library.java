@@ -15,18 +15,36 @@ import java.util.Scanner;
  */
 public class Library {
 
-    ArrayList<Book> libraryBookArray;
+    ArrayList<Book> archive;
     Scanner keyboardScanner;
 
     public Library() {
-        this.libraryBookArray = new ArrayList<Book>();
+        this.archive = new ArrayList<Book>();
         this.keyboardScanner = new Scanner(System.in);
     }
     
-    public void addBook(long id, String title, BigDecimal price, Author[] author, Pubblisher pubblisher) {
-    	libraryBookArray.add(new Book(id,title,price,author,pubblisher));
+    public void addBook(long id, String title, BigDecimal price, ArrayList<Author> author, Pubblisher pubblisher) {
+    	archive.add(new Book(id,title,price,author,pubblisher));
     }
-    public void deleteBook(long id, String title) {
-    	//if(id != null)
+    public void deleteBookByTitle(String title){
+        for(Book book : archive){
+            if(book.getTitle().equals(title)){
+                archive.remove(book);
+                break;
+            }
+        }
+    }
+    public void deleteBookById(Long id) {
+    	for(Book book : archive){
+            if(book.getId()==id){
+                archive.remove(book);
+                break;
+            }
+        }
+    }
+    public void printArchive(){
+        for(Book book : archive){
+            System.out.println(book.toString());
+        }
     }
 }
