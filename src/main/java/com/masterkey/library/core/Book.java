@@ -25,10 +25,11 @@ public class Book {
     private static final Logger log = LoggerFactory.getLogger(Book.class);
     
 	public Book(long id, String title, Author[] authors) {
-        this.id = id;
+		this(id,title,new BigDecimal("0.00"),authors,null);
+        /*this.id = id;
         this.title = title;
         this.authors = authors;
-        this.price = new BigDecimal("0.00");
+        this.price = new BigDecimal("0.00");*/
     }
     public Book(long id, String title, BigDecimal price, Author[] author) {
         this.id = id;
