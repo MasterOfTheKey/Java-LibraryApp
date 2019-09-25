@@ -12,7 +12,8 @@ package com.masterkey.library.core;
 public enum BookCategory {
     ADVENTURE,
     THRILLER,
-    SCI_FI;
+    SCI_FI,
+	NULL;
     
     public String getCategory(){
         switch(this){

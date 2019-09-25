@@ -17,13 +17,13 @@ import static org.junit.Assert.*;
  * @author francesco
  */
 public class BookTest {
-    Book instance;
-    ArrayList<Author> authors;
+    static Book instance;
+    static ArrayList<Author> authors;
     public BookTest() {
     }
     
     @BeforeClass
-    public void setUpClass() {
+    public static void setUpClass() {
         authors = new ArrayList<Author>();
         authors.add(new Author(11,"mauro","angioni"));
         instance = new Book(00002,"mauro",new BigDecimal("0.00"),authors,new Pubblisher(555,"lolli"));
@@ -85,7 +85,7 @@ public class BookTest {
     public void testGetPrice() {
         System.out.println("getPrice");
         BigDecimal expResult = null;
-        assertEquals(expResult, result);
+        //assertEquals(expResult, );
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -121,10 +121,11 @@ public class BookTest {
     @Test
     public void testSetAuthors() {
         System.out.println("setAuthors");
-        ArrayList<Author> author = null;
-        instance.setAuthors(author);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Author author = new Author(3344,"franco","lanciano");
+        ArrayList<Author> authors = new ArrayList<Author>();
+        authors.add(author);
+        instance.setAuthors(authors);
+        assertEquals(1,instance.getAuthor().size());
     }
 
     /**
@@ -133,10 +134,9 @@ public class BookTest {
     @Test
     public void testAddAuthor() {
         System.out.println("addAuthor");
-        Author author = null;
+        Author author = new Author(3344,"franco","lanciano");
         instance.addAuthor(author);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(2,instance.getAuthor().size());
     }
 
     /**
@@ -145,10 +145,9 @@ public class BookTest {
     @Test
     public void testAddCategory() {
         System.out.println("addCategory");
-        String category = "";
+        int category = 1;
         instance.addCategory(category);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("adventure ",instance.getCategories());
     }
 
     /**
@@ -170,12 +169,10 @@ public class BookTest {
     @Test
     public void testIsWrittenBy() {
         System.out.println("isWrittenBy");
-        Author author = null;
-        boolean expResult = false;
+        Author author = new Author(11,"mauro","angioni");
+        boolean expResult = true;
         boolean result = instance.isWrittenBy(author);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

@@ -6,6 +6,8 @@
 package com.masterkey.library.core;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,7 +30,7 @@ public class LibraryTest {
         long id = 102255;
         String title = "Mauro va a caccia";
         BigDecimal price = null;
-        Author[] author = null;
+        ArrayList<Author> author = null;
         Pubblisher pubblisher = null;
         Library instance = new Library();
         instance.addBook(id, title, price, author, pubblisher);
@@ -47,7 +49,7 @@ public class LibraryTest {
         long id = 0L;
         String title = "";
         BigDecimal price = null;
-        Author[] author = null;
+        ArrayList<Author> author = null;
         Pubblisher pubblisher = null;
         Library instance = new Library();
         instance.addBook(id, title, price, author, pubblisher);

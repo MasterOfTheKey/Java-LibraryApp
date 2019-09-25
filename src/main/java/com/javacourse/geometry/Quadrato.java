@@ -10,4 +10,8 @@ public class Quadrato extends Figura{
 	public double area() {
 		return lato*lato;
 	}
+	@Override
+	public String descriviti() {
+		return "quadrato";
+	}
 }

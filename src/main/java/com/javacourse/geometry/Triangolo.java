@@ -12,5 +12,10 @@ public class Triangolo extends Figura{
 	public double area() {
 		return (base*altezza)/2;
 	}
+
+	@Override
+	public String descriviti() {
+		return "triangolo";
+	}
 	
 }

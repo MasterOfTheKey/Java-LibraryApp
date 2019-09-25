@@ -10,5 +10,9 @@ public class Rettangolo extends Figura{
 	public double area() {
 		return base*altezza;
 	}
+	@Override
+	public String descriviti() {
+		return "rettangolo";
+	}
 
 }

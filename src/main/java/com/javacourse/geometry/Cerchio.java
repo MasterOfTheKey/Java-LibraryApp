@@ -10,5 +10,9 @@ public class Cerchio extends Figura{
 	public double area() {
 		return (raggio*raggio)*PI;
 	}
+	@Override
+	public String descriviti() {
+		return "cerchio";
+	}
 
 }

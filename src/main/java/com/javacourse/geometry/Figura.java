@@ -2,21 +2,15 @@ package com.javacourse.geometry;
 
 import java.text.DecimalFormat;
 
-public abstract class Figura {																							 String nomeFigura;
+public abstract class Figura implements Superficie,Descrivibile{																							 String nomeFigura;
 	protected static DecimalFormat df = new DecimalFormat(".##");
 	
-	public abstract double area();
-	
-	@override
+	@Override
 	public String toString() {
 		return "l'area della figura "+descriviti()+" e\':"+df.format(area());
 	}
 	
-	public String descriviti() {
-		return this.getClass().getSimpleName();
-	}
-	
-	@override
+	@Override
 	public boolean equals(Object o) {
 		if(o == null)return false;
 		if(o instanceof Figura) {
@@ -25,7 +19,7 @@ public abstract class Figura {																							 String nomeFigura;
 		return false;
 	}
 	
-	@override
+	@Override
 	public int hashCode() {
 		return Double.valueOf(this.area()).hashCode();
 	}

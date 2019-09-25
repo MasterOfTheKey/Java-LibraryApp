@@ -86,8 +86,21 @@ public class Book {
     	authors.add(author);
     }
     
-    public void addCategory(String category){
-        BookCategory newBookCategory = BookCategory.valueOf(category);
+    public void addCategory(int category){
+    	BookCategory newBookCategory;
+    	switch(category) {
+    	case 1:
+    		newBookCategory = BookCategory.valueOf("ADVENTURE");
+    		break;
+    	case 2:
+    		newBookCategory = BookCategory.valueOf("THRILLER");
+    		break;
+    	case 3:
+    		newBookCategory = BookCategory.valueOf("SCI_FI");
+    		break;
+    	default:
+    		newBookCategory = BookCategory.valueOf("NULL");
+    	}
         bookCategories.add(newBookCategory);
     }
     public String getCategories(){
