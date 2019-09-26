@@ -8,6 +8,8 @@ package com.masterkey.library.core;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,33 +18,42 @@ import org.slf4j.LoggerFactory;
  *
  * @author francesco
  */
-public class Book {
+public class Book implements Comparable{
     private long id;
+    private String isbn;
     private String title;
     private BigDecimal price;
-    private ArrayList<Author> authors;
+    private List authors;
     private Pubblisher pubblisher;
     private ArrayList<BookCategory> bookCategories;
     
     private static final Logger log = LoggerFactory.getLogger(Book.class);
     
-    public Book(long id, String title, ArrayList<Author> authors) {
-	this(id,title,new BigDecimal("0.00"),authors,null);
+    public Book(long id, String isbn, String title, ArrayList<Author> authors) {
+    	this(id,isbn,title,new BigDecimal("0.00"),authors,null);
         this.bookCategories = new ArrayList<BookCategory>();
         /*this.id = id;
         this.title = title;
         this.authors = authors;
         this.price = new BigDecimal("0.00");*/
     }
-    public Book(long id, String title, BigDecimal price, ArrayList<Author> author) {
+    public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	public Book(long id, String isbn, String title, BigDecimal price, ArrayList<Author> author) {
         this.id = id;
+        this.isbn = isbn;
         this.title = title;
         this.price = price;
         this.authors = author;
         this.bookCategories = new ArrayList<BookCategory>();
     }
-    public Book(long id, String title, BigDecimal price, ArrayList<Author> author, Pubblisher pubblisher) {
+    public Book(long id, String isbn, String title, BigDecimal price, ArrayList<Author> author, Pubblisher pubblisher) {
 	this.id = id;
+	this.isbn = isbn;
 	this.title = title;
 	this.price = price;
 	this.authors = author;
@@ -61,7 +72,7 @@ public class Book {
     public String getTitle() {
         return title;
     }
-
+ 
     public void setTitle(String title) {
         this.title = title;
     }
@@ -75,7 +86,7 @@ public class Book {
     }
 
     public ArrayList<Author> getAuthor() {
-        return authors;
+        return (ArrayList<Author>) authors;
     }
 
     public void setAuthors(ArrayList<Author> author) {
@@ -120,8 +131,9 @@ public class Book {
     
     private String getAuthorsArrayToString() {
     	StringBuilder stringBuilder = new StringBuilder();
-    	for(Author a : authors) {
-    		stringBuilder.append(a.toString());
+    	Iterator it = authors.iterator();
+    	while(it.hasNext()) {
+    		stringBuilder.append(it.next().toString());
     	}
     	return stringBuilder.toString();
     }
@@ -131,7 +143,21 @@ public class Book {
             return "Book id=" + id + "\ntitle=" + title + "\nprice=" + price + "\nauthors=" + getAuthorsArrayToString()
 				+ "\npubblisher=" + pubblisher.toString() + "\ncategories="+getCategories();
     }
-
+	@Override
+	public int compareTo(Object o) {
+		Book book = (Book) o;
+		return (int) (this.getId()-book.getId());
+	}
+	@Override
+	public boolean equals(Object o) {
+		Book book = (Book) o; 
+		return (this.id == book.id);
+	}
+	@Override
+	public int hashCode() { 
+		return Long.hashCode(this.id);
+	}
+	
     
     
 }

@@ -29,11 +29,12 @@ public class LibraryTest {
     public static void setUpClass() {
         long id = 102255;
         String title = "Mauro va a caccia";
+        String isbn = "dffdbfvf";
         BigDecimal price = null;
         ArrayList<Author> author = null;
         Pubblisher pubblisher = null;
         Library instance = new Library();
-        instance.addBook(id, title, price, author, pubblisher);
+        instance.addBook(id, isbn, title, price, author, pubblisher);
     }
     
     @AfterClass
@@ -49,10 +50,12 @@ public class LibraryTest {
         long id = 0L;
         String title = "";
         BigDecimal price = null;
-        ArrayList<Author> author = null;
+        ArrayList<Author> authors = new ArrayList<Author>();
+        authors.add(new Author(11,"mauro","angioni"));
         Pubblisher pubblisher = null;
         Library instance = new Library();
-        instance.addBook(id, title, price, author, pubblisher);
+        instance.addBook(new Book(00002,"sdssaddsa","Mauro va a caccia",new BigDecimal("0.00"),authors,new Pubblisher(555,"lolli")));
+        instance.addBook(new Book(00002,"sdssaddsa","Mauro va a caccia",new BigDecimal("0.00"),authors,new Pubblisher(555,"lolli")));
         assertEquals(1,instance.archive.size());
     }
 

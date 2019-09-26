@@ -26,7 +26,7 @@ public class BookTest {
     public static void setUpClass() {
         authors = new ArrayList<Author>();
         authors.add(new Author(11,"mauro","angioni"));
-        instance = new Book(00002,"mauro",new BigDecimal("0.00"),authors,new Pubblisher(555,"lolli"));
+        instance = new Book(00002,"sdssaddsa","mauro",new BigDecimal("0.00"),authors,new Pubblisher(555,"lolli"));
     }
     
     @AfterClass
@@ -65,7 +65,7 @@ public class BookTest {
         String result = instance.getTitle();
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of setTitle method, of class Book.
      */

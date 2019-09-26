@@ -1,6 +1,6 @@
 package com.masterkey.library.core;
 
-public class Author {
+public class Author implements Comparable{
 	long id;
 	String firstName;
 	String lastName;
@@ -56,6 +56,12 @@ public class Author {
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Author author = (Author) o;
+		return (int) (this.getId() - author.getId());
 	}
 	
 }
